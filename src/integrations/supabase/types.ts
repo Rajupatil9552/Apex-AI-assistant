@@ -14,13 +14,146 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      chat_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          role: string
+          session_id: string
+          sources: Json | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          session_id: string
+          sources?: Json | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          session_id?: string
+          sources?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "chat_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          language: string
+          summary: Json | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          language?: string
+          summary?: Json | null
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          language?: string
+          summary?: Json | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      knowledge_chunks: {
+        Row: {
+          chunk_index: number
+          content: string
+          created_at: string
+          id: string
+          page_title: string
+          search_vector: unknown
+          source_url: string
+          updated_at: string
+        }
+        Insert: {
+          chunk_index?: number
+          content: string
+          created_at?: string
+          id?: string
+          page_title: string
+          search_vector?: unknown
+          source_url: string
+          updated_at?: string
+        }
+        Update: {
+          chunk_index?: number
+          content?: string
+          created_at?: string
+          id?: string
+          page_title?: string
+          search_vector?: unknown
+          source_url?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      scrape_logs: {
+        Row: {
+          chunks_created: number | null
+          completed_at: string | null
+          error_message: string | null
+          id: string
+          pages_scraped: number | null
+          started_at: string
+          status: string
+        }
+        Insert: {
+          chunks_created?: number | null
+          completed_at?: string | null
+          error_message?: string | null
+          id?: string
+          pages_scraped?: number | null
+          started_at?: string
+          status?: string
+        }
+        Update: {
+          chunks_created?: number | null
+          completed_at?: string | null
+          error_message?: string | null
+          id?: string
+          pages_scraped?: number | null
+          started_at?: string
+          status?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      search_knowledge: {
+        Args: { match_limit?: number; search_query: string }
+        Returns: {
+          content: string
+          id: string
+          page_title: string
+          rank: number
+          source_url: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
