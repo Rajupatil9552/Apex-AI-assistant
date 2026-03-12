@@ -5,7 +5,7 @@ export type Message = {
   id: string;
   role: 'user' | 'assistant' | 'system';
   content: string;
-  sources?: { url: string; title: string }[];
+  sources?: any;
   created_at: string;
 };
 
