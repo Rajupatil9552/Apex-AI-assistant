@@ -255,6 +255,7 @@ export function useChat() {
 
   // Search sessions
   const searchSessions = useCallback(async (query: string) => {
+    const browserId = getBrowserId();
     if (!query.trim()) {
       await loadSessions();
       return;
@@ -262,6 +263,7 @@ export function useChat() {
     const { data } = await supabase
       .from('chat_sessions')
       .select('*')
+      .eq('browser_id', browserId)
       .ilike('title', `%${query}%`)
       .order('updated_at', { ascending: false });
     if (data) setSessions(data as ChatSession[]);
