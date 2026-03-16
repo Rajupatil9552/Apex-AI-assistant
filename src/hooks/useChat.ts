@@ -165,6 +165,7 @@ export function useChat() {
       while (!streamDone) {
         const { done, value } = await reader.read();
         if (done) break;
+        setIsStreaming(true);
         textBuffer += decoder.decode(value, { stream: true });
 
         let newlineIndex: number;
