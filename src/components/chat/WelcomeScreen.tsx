@@ -144,7 +144,7 @@ export function WelcomeScreen({ language, onSuggestionClick }: Props) {
 
         {/* Suggestions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {suggestions.map((s, i) => (
+          {(suggestions[language] || suggestions.en).map((s, i) => (
             <button
               key={i}
               onClick={() => onSuggestionClick(s.text)}
