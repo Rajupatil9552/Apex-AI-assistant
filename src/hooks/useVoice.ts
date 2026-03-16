@@ -48,12 +48,27 @@ export function useVoice() {
     }
   }, []);
 
+  const stripMarkdown = (text: string): string => {
+    return text
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // [text](url) → text
+      .replace(/[*_~`#>]+/g, '') // remove markdown symbols
+      .replace(/\n{2,}/g, '. ') // paragraph breaks → period
+      .replace(/\n/g, ' ') // newlines → space
+      .replace(/\|/g, ' ') // table pipes
+      .replace(/-{2,}/g, '') // horizontal rules
+      .replace(/\s{2,}/g, ' ') // collapse whitespace
+      .trim();
+  };
+
   const speak = useCallback((text: string, language: string = 'en-IN') => {
     if (synthRef.current.speaking) {
       synthRef.current.cancel();
     }
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    const cleanText = stripMarkdown(text);
+    if (!cleanText) return;
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
 
     // Map language codes to speech synthesis language
     const langMap: Record<string, string> = {
