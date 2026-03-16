@@ -37,11 +37,13 @@ export function useChat() {
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
 
-  // Load sessions
+  // Load sessions (filtered by browser_id)
   const loadSessions = useCallback(async () => {
+    const browserId = getBrowserId();
     const { data } = await supabase
       .from('chat_sessions')
       .select('*')
+      .eq('browser_id', browserId)
       .order('updated_at', { ascending: false });
     if (data) setSessions(data as ChatSession[]);
   }, []);
