@@ -51,6 +51,7 @@ export type Database = {
       }
       chat_sessions: {
         Row: {
+          browser_id: string | null
           created_at: string
           id: string
           language: string
@@ -59,6 +60,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          browser_id?: string | null
           created_at?: string
           id?: string
           language?: string
@@ -67,6 +69,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          browser_id?: string | null
           created_at?: string
           id?: string
           language?: string

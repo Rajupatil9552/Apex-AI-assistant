@@ -1,0 +1,1 @@
+ALTER TABLE public.chat_sessions ADD COLUMN browser_id text;
