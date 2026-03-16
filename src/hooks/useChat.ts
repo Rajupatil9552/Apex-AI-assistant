@@ -60,9 +60,10 @@ export function useChat() {
 
   // Create new session
   const createSession = useCallback(async (language: string = 'en') => {
+    const browserId = getBrowserId();
     const { data } = await supabase
       .from('chat_sessions')
-      .insert({ title: 'New Chat', language })
+      .insert({ title: 'New Chat', language, browser_id: browserId } as any)
       .select()
       .single();
     if (data) {
