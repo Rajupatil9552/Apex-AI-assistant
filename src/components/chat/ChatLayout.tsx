@@ -1,15 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChatSidebar } from './ChatSidebar';
 import { ChatArea } from './ChatArea';
 import { useChat } from '@/hooks/useChat';
 import { useVoice } from '@/hooks/useVoice';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { Menu } from 'lucide-react';
 
 export function ChatLayout() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const isMobile = useIsMobile();
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
   const [language, setLanguage] = useState('en');
   const chat = useChat();
   const voice = useVoice();
+
+  // Close sidebar on mobile, open on desktop when viewport changes
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">
