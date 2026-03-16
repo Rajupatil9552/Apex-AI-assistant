@@ -13,6 +13,11 @@ export function ChatLayout() {
   const chat = useChat();
   const voice = useVoice();
 
+  // Close sidebar on mobile, open on desktop when viewport changes
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
+
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">
       {/* Mobile sidebar toggle */}
