@@ -4,6 +4,7 @@ import { ChatInput } from './ChatInput';
 import { WelcomeScreen } from './WelcomeScreen';
 import { Message } from '@/hooks/useChat';
 import { Menu } from 'lucide-react';
+import { ModeToggle } from '@/components/mode-toggle';
 
 type Props = {
   messages: Message[];
@@ -59,23 +60,27 @@ export function ChatArea({
           <p className="text-xs text-muted-foreground">Ambit Finvest AI Assistant</p>
         </div>
 
-        {/* Language selector */}
-        <select
-          value={language}
-          onChange={(e) => onLanguageChange(e.target.value)}
-          className="text-xs px-2 py-1.5 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-        >
-          <option value="en">English</option>
-          <option value="hi">हिंदी</option>
-          <option value="mr">मराठी</option>
-          <option value="ta">தமிழ்</option>
-          <option value="te">తెలుగు</option>
-          <option value="kn">ಕನ್ನಡ</option>
-          <option value="ml">മലയാളം</option>
-          <option value="bn">বাংলা</option>
-          <option value="gu">ગુજરાતી</option>
-          <option value="pa">ਪੰਜਾਬੀ</option>
-        </select>
+        <div className="flex items-center gap-2">
+          {/* Language selector */}
+          <select
+            value={language}
+            onChange={(e) => onLanguageChange(e.target.value)}
+            className="text-xs px-2 py-1.5 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+          >
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+            <option value="mr">मराठी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+            <option value="kn">ಕನ್ನಡ</option>
+            <option value="ml">മലയാളം</option>
+            <option value="bn">বাংলা</option>
+            <option value="gu">ગુજરાતી</option>
+            <option value="pa">ਪੰਜਾਬੀ</option>
+          </select>
+          
+          <ModeToggle />
+        </div>
       </header>
 
       {/* Messages */}

@@ -110,6 +110,18 @@ export function useChat() {
       .select()
       .single();
 
+    // Sync to Sheets (Fire-and-forget via Google Apps Script Webhook)
+    if (import.meta.env.VITE_GOOGLE_WEBHOOK_URL) {
+      fetch(import.meta.env.VITE_GOOGLE_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({ conversationId: sessionId, senderRole: 'user', content }),
+        mode: 'no-cors'
+      }).catch(console.error);
+    }
+
     if (userMsg) {
       setMessages(prev => [...prev, userMsg as unknown as Message]);
     }
@@ -214,6 +226,18 @@ export function useChat() {
         .select()
         .single();
 
+      // Sync to Sheets (Fire-and-forget via Google Apps Script Webhook)
+      if (import.meta.env.VITE_GOOGLE_WEBHOOK_URL) {
+        fetch(import.meta.env.VITE_GOOGLE_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
+          body: JSON.stringify({ conversationId: sessionId, senderRole: 'assistant', content: assistantContent }),
+          mode: 'no-cors'
+        }).catch(console.error);
+      }
+
       if (savedMsg) {
         setMessages(prev => prev.map((m, i) =>
           i === prev.length - 1 ? (savedMsg as unknown as Message) : m
@@ -242,6 +266,17 @@ export function useChat() {
           .from('chat_sessions')
           .update({ summary: data.summary })
           .eq('id', sessionId);
+          
+        // Push summary to Google Sheets
+        if (import.meta.env.VITE_GOOGLE_WEBHOOK_URL) {
+          fetch(import.meta.env.VITE_GOOGLE_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ type: 'summary', sessionId, summary: data.summary }),
+            mode: 'no-cors'
+          }).catch(console.error);
+        }
+
         setSessions(prev =>
           prev.map(s => s.id === sessionId ? { ...s, summary: data.summary } : s)
         );
