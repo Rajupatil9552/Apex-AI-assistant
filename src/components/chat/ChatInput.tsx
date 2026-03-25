@@ -61,7 +61,7 @@ export function ChatInput({ onSend, isLoading, voice, language }: Props) {
             value={input}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
-            placeholder="Ask Pragati anything about Ambit Finvest..."
+            placeholder="Ask Apex AI anything about Apex Financial Services..."
             rows={1}
             className="flex-1 bg-transparent resize-none text-sm text-foreground placeholder:text-muted-foreground focus:outline-none max-h-[120px]"
             disabled={isLoading}
@@ -108,7 +108,7 @@ export function ChatInput({ onSend, isLoading, voice, language }: Props) {
         )}
 
         <p className="text-[10px] text-muted-foreground text-center mt-2">
-          Pragati provides information from the Finvest website only. Not financial advice.
+          Apex AI provides information from the Finvest website only. Not financial advice.
         </p>
       </div>
     </div>

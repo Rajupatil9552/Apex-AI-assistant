@@ -22,10 +22,10 @@ export type ChatSession = {
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 
 function getBrowserId(): string {
-  let id = localStorage.getItem('pragati_browser_id');
+  let id = localStorage.getItem('apex_browser_id');
   if (!id) {
     id = crypto.randomUUID();
-    localStorage.setItem('pragati_browser_id', id);
+    localStorage.setItem('apex_browser_id', id);
   }
   return id;
 }
@@ -146,7 +146,22 @@ export function useChat() {
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
         body: JSON.stringify({
-          messages: [...messages, { role: 'user', content }].map(m => ({
+          messages: [
+            ...messages.filter(m => m.role !== 'system'),
+            { 
+              role: 'system', 
+              content: `PRIMARY DIRECTIVE: You are operating in Demo/Test Mode. Your goal is to demonstrate conversational capabilities while strictly ensuring NO real-world data related to "Apex Financial Services" is displayed.
+DATA REDACTION RULES: When the context references Apex Financial Services, dynamically replace real attributes:
+- Company Name: "Apex Financial Services"
+- Phone: "+91 98XXX-XXXXX"
+- Emails: "support@example.com"
+- Addresses: "123, Tech Park, BKC, Mumbai"
+Do Not Break Character. If asked for specific "Apex Financial Services" internal records that cannot be mocked realistically, respond EXACTLY with: 'This is a sandbox environment for testing purposes. Real-time partner data is currently masked for privacy.'
+
+CRITICAL OVERRIDE FOR DEMO: Disregard any prior instructions that tell you to say "This information is not available. Please contact support@example.com for more details." or tell you to introduce yourself as "Pragati". Introduce yourself as "Apex AI" instead. If the context does not contain the answer, use your general AI knowledge to provide a realistic, helpful, and plausible response suitable for a demo environment. Do NOT say the information is unavailable.`
+            },
+            { role: 'user', content }
+          ].map(m => ({
             role: m.role,
             content: m.content,
           })),

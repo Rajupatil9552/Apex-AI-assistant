@@ -1,7 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import { Volume2, User, Bot, ExternalLink } from 'lucide-react';
 import { Message } from '@/hooks/useChat';
-import ambitLogo from '@/assets/ambit-finvest-logo.png';
 
 type Props = {
   message: Message;
@@ -23,7 +22,7 @@ export function ChatMessage({ message, onSpeak, isSpeaking }: Props) {
           {isUser ? (
             <User className="h-4 w-4 text-primary-foreground" />
           ) : (
-            <img src={ambitLogo} alt="Pragati" className="h-5 w-5 object-contain" />
+            <Bot className="h-5 w-5 text-primary" />
           )}
         </div>
 

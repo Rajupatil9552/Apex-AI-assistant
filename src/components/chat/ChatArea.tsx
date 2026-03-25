@@ -56,8 +56,8 @@ export function ChatArea({
           </button>
         )}
         <div className="flex-1">
-          <h2 className="text-sm font-display font-semibold text-foreground">Pragati</h2>
-          <p className="text-xs text-muted-foreground">Ambit Finvest AI Assistant</p>
+          <h2 className="text-sm font-display font-semibold text-foreground">Apex AI</h2>
+          <p className="text-xs text-muted-foreground">Apex Financial Services AI Assistant</p>
         </div>
 
         <div className="flex items-center gap-2">

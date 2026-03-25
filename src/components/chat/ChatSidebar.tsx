@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Plus, Search, Trash2, X, MessageSquare, FileText } from 'lucide-react';
+import { Plus, Search, Trash2, X, MessageSquare, FileText, Bot } from 'lucide-react';
 import { ChatSession } from '@/hooks/useChat';
-import ambitLogo from '@/assets/ambit-finvest-logo.png';
 import { ConversationSummary } from './ConversationSummary';
 
 type Props = {
@@ -49,10 +48,12 @@ export function ChatSidebar({
     <div className="w-72 h-full bg-sidebar flex flex-col border-r border-sidebar-border">
       {/* Logo & branding */}
       <div className="p-4 flex items-center gap-3 border-b border-sidebar-border">
-        <img src={ambitLogo} alt="Ambit Finvest" className="h-10 w-10 rounded-lg object-contain bg-card p-1" />
+        <div className="h-10 w-10 rounded-lg bg-card text-foreground flex items-center justify-center p-1">
+          <Bot className="h-6 w-6" />
+        </div>
         <div className="flex-1 min-w-0">
-          <h1 className="text-sm font-display font-bold text-sidebar-foreground truncate">Pragati</h1>
-          <p className="text-xs text-sidebar-foreground/60">by Ambit Finvest</p>
+          <h1 className="text-sm font-display font-bold text-sidebar-foreground truncate">Apex AI</h1>
+          <p className="text-xs text-sidebar-foreground/60">by Apex Financial Services</p>
         </div>
         <button onClick={onClose} className="p-1 rounded hover:bg-sidebar-hover text-sidebar-foreground/60 md:hidden">
           <X className="h-4 w-4" />
